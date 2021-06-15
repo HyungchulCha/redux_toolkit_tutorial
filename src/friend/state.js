@@ -9,30 +9,25 @@ const friendSlice = createSlice({
     showLimit: MAX_SHOW_LIMIT,
   },
   reducers: {
-    add: (state, action) => {
-      state.friends.push(action.payload);
+    add: (state, { payload }) => {
+      state.friends.push(payload);
     },
-    remove: (state, action) => {
-      const index = state.friends.filter(
-        (friend) => friend.id === action.payload.id
-      );
+    remove: (state, { payload }) => {
+      const index = state.friends.filter((friend) => friend.id === payload.id);
       state.friends.splice(index, 1);
     },
-    edit: (state, action) => {
-      const index = state.friends.filter(
-        (friend) => friend.id === action.payload.id
-      );
-      state.friends[index] = action.payload;
+    edit: (state, { payload }) => {
+      const index = state.friends.filter((friend) => friend.id === payload.id);
+      state.friends[index] = payload;
     },
-    setAgeLimit: (state, action) => {
-      state.ageLimit = action.payload;
+    setAgeLimit: (state, { payload }) => {
+      state.ageLimit = payload;
     },
-    setShowLimit: (state, action) => {
-      state.showLimit = action.payload;
+    setShowLimit: (state, { payload }) => {
+      state.showLimit = payload;
     },
   },
 });
 
-export const { add, remove, edit, setAgeLimit, setShowLimit } =
-  friendSlice.actions;
+export const { add, remove, edit, setAgeLimit, setShowLimit } = friendSlice.actions;
 export default friendSlice.reducer;

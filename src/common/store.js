@@ -87,6 +87,7 @@
 
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import friendReducer from '../friend/state';
+import timelineReducer from '../timeline/state';
 // import createSagaMiddleware from 'redux-saga';
 // import saga from './saga';
 
@@ -97,7 +98,7 @@ import friendReducer from '../friend/state';
 const store = configureStore({
   reducer: {
     friend: friendReducer,
-    // timeline: timelineReducer,
+    timeline: timelineReducer,
   },
   // middleware,
 });
