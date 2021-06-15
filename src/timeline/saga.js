@@ -1,6 +1,13 @@
 import { all, call, debounce, fork, put, take } from 'redux-saga/effects';
 import { callApiLike } from '../common/api';
-import { addLike, requestLike, setLoading, setError, trySetText, setText } from './state';
+import {
+  addLike,
+  requestLike,
+  setLoading,
+  setError,
+  trySetText,
+  setText,
+} from './state';
 
 export function* fetchData() {
   while (true) {

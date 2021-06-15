@@ -14,16 +14,26 @@ const Friend = () => {
   const showLimit = useSelector(getShowLimit);
 
   function makeGetFriendWithAgeLimit() {
-    return createSelector([getFriends, getAgeLimit], (friends, ageLimit) => friends.filter((friend) => friend.age <= ageLimit));
+    return createSelector([getFriends, getAgeLimit], (friends, ageLimit) =>
+      friends.filter((friend) => friend.age <= ageLimit)
+    );
   }
   const getFriendsWithAgeLimit = useMemo(makeGetFriendWithAgeLimit, []);
-  const friendsWithAgeLimit = useSelector((state) => getFriendsWithAgeLimit(state, ageLimit));
+  const friendsWithAgeLimit = useSelector((state) =>
+    getFriendsWithAgeLimit(state, ageLimit)
+  );
 
   const makeGetFriendWithAgeShowLimit = () => {
-    return createSelector([getFriendsWithAgeLimit, getShowLimit], (friendsWithAgeLimit, showLimit) => friendsWithAgeLimit.slice(0, showLimit));
+    return createSelector(
+      [getFriendsWithAgeLimit, getShowLimit],
+      (friendsWithAgeLimit, showLimit) =>
+        friendsWithAgeLimit.slice(0, showLimit)
+    );
   };
   const getFriendsWithAgeShowLimit = useMemo(makeGetFriendWithAgeShowLimit, []);
-  const friendsWithAgeShowLimit = useSelector((state) => getFriendsWithAgeShowLimit(state, showLimit));
+  const friendsWithAgeShowLimit = useSelector((state) =>
+    getFriendsWithAgeShowLimit(state, showLimit)
+  );
 
   const dispatch = useDispatch();
 
@@ -36,10 +46,20 @@ const Friend = () => {
       <button onClick={onAdd}>Add Friend</button>
       <FriendList friends={friends} />
       <br />
-      <NumberSelect onChange={(v) => dispatch(setAgeLimit(v))} value={ageLimit} options={AGE_LIMIT_OPTIONS} postfix={`세 이하만 보기`} />
+      <NumberSelect
+        onChange={(v) => dispatch(setAgeLimit(v))}
+        value={ageLimit}
+        options={AGE_LIMIT_OPTIONS}
+        postfix={`세 이하만 보기`}
+      />
       <FriendList friends={friendsWithAgeLimit} />
       <br />
-      <NumberSelect onChange={(v) => dispatch(setShowLimit(v))} value={showLimit} options={SHOW_LIMIT_OPTIONS} postfix={`명 이하만 보기 (연령 제한 적용)`} />
+      <NumberSelect
+        onChange={(v) => dispatch(setShowLimit(v))}
+        value={showLimit}
+        options={SHOW_LIMIT_OPTIONS}
+        postfix={`명 이하만 보기 (연령 제한 적용)`}
+      />
       <FriendList friends={friendsWithAgeShowLimit} />
     </div>
   );
