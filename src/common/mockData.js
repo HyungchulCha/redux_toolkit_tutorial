@@ -5,10 +5,10 @@ const friends = [
   { name: 'd', age: 30 },
 ];
 const timelines = [
-  { desc: 'A', like: 0 },
-  { desc: 'B', like: 10 },
-  { desc: 'C', like: 20 },
-  { desc: 'D', like: 30 },
+  { desc: 'A', likes: 0 },
+  { desc: 'B', likes: 10 },
+  { desc: 'C', likes: 20 },
+  { desc: 'D', likes: 30 },
 ];
 
 function makeDataGenerator(items) {

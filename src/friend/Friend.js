@@ -5,15 +5,28 @@ import { add, setAgeLimit, setShowLimit } from './state';
 import { useDispatch, useSelector } from 'react-redux';
 import NumberSelect from './NumberSelect';
 import { AGE_LIMIT_OPTIONS, SHOW_LIMIT_OPTIONS } from './config';
-import { getFriends, getAgeLimit, getShowLimit, getFriendsWithAgeLimit, getFriendsWithAgeShowLimit } from './selector';
+import { getFriends, getAgeLimit, getShowLimit } from './selector';
+import { createSelector } from '@reduxjs/toolkit';
 
 const Friend = () => {
   const friends = useSelector(getFriends);
   const ageLimit = useSelector(getAgeLimit);
   const showLimit = useSelector(getShowLimit);
-  const friendsWithAgeLimit = useSelector(getFriendsWithAgeLimit);
-  const friendsWithAgeShowLimit = useSelector(getFriendsWithAgeShowLimit);
+
+  function makeGetFriendWithAgeLimit() {
+    return createSelector([getFriends, getAgeLimit], (friends, ageLimit) => friends.filter((friend) => friend.age <= ageLimit));
+  }
+  const getFriendsWithAgeLimit = useMemo(makeGetFriendWithAgeLimit, []);
+  const friendsWithAgeLimit = useSelector((state) => getFriendsWithAgeLimit(state, ageLimit));
+
+  const makeGetFriendWithAgeShowLimit = () => {
+    return createSelector([getFriendsWithAgeLimit, getShowLimit], (friendsWithAgeLimit, showLimit) => friendsWithAgeLimit.slice(0, showLimit));
+  };
+  const getFriendsWithAgeShowLimit = useMemo(makeGetFriendWithAgeShowLimit, []);
+  const friendsWithAgeShowLimit = useSelector((state) => getFriendsWithAgeShowLimit(state, showLimit));
+
   const dispatch = useDispatch();
+
   function onAdd() {
     const friend = getNextFriend();
     dispatch(add(friend));

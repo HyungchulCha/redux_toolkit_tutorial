@@ -4,7 +4,9 @@ const FriendList = ({ friends }) => {
   return (
     <ul>
       {friends.map((friend) => (
-        <li key={friend.id}>{friend.name}</li>
+        <li style={{ display: 'inline-block', fontSize: '18px' }} key={friend.id}>
+          {friend.name}
+        </li>
       ))}
     </ul>
   );
