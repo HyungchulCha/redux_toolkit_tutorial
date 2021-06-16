@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNextTimeline } from '../common/mockData';
 import store from '../common/store';
-import { add, requestLike, trySetText } from './state';
+import { add, requestLike, trySetText, TS } from './state';
 import TimelineList from './TimelineList';
 
 const Timeline = () => {
@@ -27,7 +27,6 @@ const Timeline = () => {
   }
   const timelines = store.getState().timeline.timelines;
   */
-
   const dispatch = useDispatch();
   const timelines = useSelector((state) => state.timeline.timelines);
   const isLoading = useSelector((state) => state.timeline.isLoading);

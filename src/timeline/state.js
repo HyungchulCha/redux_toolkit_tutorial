@@ -4,39 +4,56 @@ const timelineSlice = createSlice({
   name: 'timeline',
   initialState: { timelines: [], nextPage: 0, isLoading: false, error: '', text: '' },
   reducers: {
-    add: (state, { payload }) => {
-      state.timelines.push(payload);
+    add: {
+      reducer: (state, { payload }) => {
+        state.timelines.push(payload);
+      },
     },
-    remove: (state, { payload }) => {
-      const index = state.timelines.findIndex((timeline) => timeline.id === payload.id);
-      state.timelines[index].splice(index, 1);
+    remove: {
+      reducer: (state, { payload }) => {
+        const index = state.timelines.findIndex((timeline) => timeline.id === payload.id);
+        state.timelines[index].splice(index, 1);
+      },
     },
-    edit: (state, { payload }) => {
-      const index = state.timelines.findIndex((timeline) => timeline.id === payload.id);
-      state.timelines[index] = payload;
+    edit: {
+      reducer: (state, { payload }) => {
+        const index = state.timelines.findIndex((timeline) => timeline.id === payload.id);
+        state.timelines[index] = payload;
+      },
     },
-    increaseNextPage: (state) => {
-      state.nextPage += 1;
+    increaseNextPage: {
+      reducer: (state) => {
+        state.nextPage += 1;
+      },
     },
     requestLike: () => {},
-    addLike: (state, { payload }) => {
-      const timeline = state.timelines.find((item) => item.id === payload.timelineId);
-      if (timeline) {
-        timeline.likes += payload.value;
-      }
+    addLike: {
+      reducer: (state, { payload }) => {
+        const timeline = state.timelines.find((item) => item.id === payload.timelineId);
+        if (timeline) {
+          timeline.likes += payload.value;
+        }
+      },
+      prepare: (timelineId, value) => ({ payload: { timelineId, value } }),
     },
-    setLoading: (state, { payload }) => {
-      state.isLoading = payload;
+    setLoading: {
+      reducer: (state, { payload }) => {
+        state.isLoading = payload;
+      },
     },
-    setError: (state, { payload }) => {
-      state.error = payload.error;
+    setError: {
+      reducer: (state, { payload }) => {
+        state.error = payload;
+      },
     },
-    setText: (state, { payload }) => {
-      state.text = payload.text;
+    setText: {
+      reducer: (state, { payload }) => {
+        state.text = payload;
+      },
     },
     trySetText: () => {},
   },
 });
-
+export const TS = timelineSlice;
 export const { add, remove, edit, increaseNextPage, requestLike, addLike, setLoading, setError, setText, trySetText } = timelineSlice.actions;
 export default timelineSlice.reducer;
